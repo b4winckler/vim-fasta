@@ -5,9 +5,12 @@ Vim plugin for manipulating FASTA file contents.
 I am working on this plugin so its functionality may grow, or it may stagnate.
 Who knows.
 
-The only functionality so far is the command `:FastaReverseComplement` which
-reverse complements the nucleotides on the current line (it supports the full
-IUPAC-IUB nucleotide code set).
+The only functionality so far are the commands `:FastaReverseComplement` and
+`:FastaSearch`.  The former reverse complements the nucleotides in the
+specified line range (or the current line if no range is specified), and the
+latter can be used to search for sequences (e.g.  "AAgNnwcR").
+
+All functionality is aware of the full IUPAC-IUB nucleotide code set.
 
 
 # Installation
