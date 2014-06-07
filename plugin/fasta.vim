@@ -25,5 +25,27 @@ function! FastaReverseComplement()
     call FastaComplement()
 endfunction
 
+function! FastaRegex(iupac)
+    let saveic=&ic
+    set noignorecase
+
+    let p = substitute(substitute(a:iupac, "r", '[ga]', "g"), "R", '[GA]', "g")
+    let p = substitute(substitute(p, "y", '[tc]', "g"), "Y", '[TC]', "g")
+    let p = substitute(substitute(p, "m", '[ac]', "g"), "M", '[AC]', "g")
+    let p = substitute(substitute(p, "k", '[gt]', "g"), "K", '[GT]', "g")
+    let p = substitute(substitute(p, "s", '[gc]', "g"), "S", '[GC]', "g")
+    let p = substitute(substitute(p, "w", '[at]', "g"), "W", '[AT]', "g")
+    let p = substitute(substitute(p, "h", '[act]', "g"), "H", '[ACT]', "g")
+    let p = substitute(substitute(p, "b", '[gtc]', "g"), "B", '[GTC]', "g")
+    let p = substitute(substitute(p, "v", '[gca]', "g"), "V", '[GCA]', "g")
+    let p = substitute(substitute(p, "d", '[gat]', "g"), "D", '[GAT]', "g")
+    let p = substitute(substitute(p, "n", '[gatc]', "g"), "N", '[GATC]', "g")
+
+    let &ic=saveic
+    return p
+endfunction
+
 command! -range FastaReverseComplement
             \ :<line1>,<line2>call FastaReverseComplement()
+
+command! -nargs=1 FastaSearch :let @/=FastaRegex(<args>) | norm n
