@@ -12,17 +12,18 @@ let g:loaded_fasta = 1
 
 
 " Supports IUPAC-IUB codes (nb. S, W, N are their own complement)
-function FastaComplement()
+function! FastaComplement()
     call setline(".", tr(getline("."), "GATCRYMKHBVDgatcrymkhbvd", "CTAGYRKMDVBHctagyrkmdvbh"))
 endfunction
 
-function FastaReverse()
+function! FastaReverse()
     call setline(".", join(reverse(split(getline("."), '\zs')),""))
 endfunction
 
-function FastaReverseComplement()
+function! FastaReverseComplement()
     call FastaReverse()
     call FastaComplement()
 endfunction
 
-command! FastaReverseComplement call FastaReverseComplement()
+command! -range FastaReverseComplement
+            \ :<line1>,<line2>call FastaReverseComplement()
